@@ -10,10 +10,15 @@ UnityのInputSystemのvirtual Mouse の機能で
 ・スクロール上にカーソルがある場合に右スティックでスクロールを操作
 
 その他シーンの遷移やダイアログ用のスクリプトを作成
+シーン遷移についてはUnityのUIラーニングプロジェクトから流用
 
 本解説と同一フォルダにビルドと動画が添付されている
 ビルド：UIPointer
 動画　：UIPointer動画
+
+
+制作時間：10時間程度
+制作環境：windows, Unity, C# , sourcetree(github) 
 
 ■ CursorController.cs について
 

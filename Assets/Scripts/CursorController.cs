@@ -93,7 +93,7 @@ public class CursorController : MonoBehaviour
             };
             List<RaycastResult> results = new List<RaycastResult>();
             EventSystem.current.RaycastAll(pointer, results);
-            if (!results.Any(r => r.gameObject == btn.gameObject)) continue; // マスクされている場合は対象外
+            if (!results.Any(r => r.gameObject == btn.gameObject)) continue;
 
             Vector2 btnPos = rectTrans.anchoredPosition;
             // カーソルのローカル座標系に変換
