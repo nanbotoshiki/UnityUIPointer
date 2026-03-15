@@ -1,0 +1,42 @@
+■ 概要
+Unityでコントローラーで仮想マウスカーソルを動作させる
+現在担当の案件にてsteamのコントローラー対応を行うため試作した。
+
+UnityのInputSystemのvirtual Mouse の機能で
+マウスのカーソル移動とクリックを左スティックとボタンで行うことは可能
+
+上記に加えて以下2点の対応のためにCursorController.csを作成
+・十字キーでマスクされていない近くのボタンにカーソルを移動
+・スクロール上にカーソルがある場合に右スティックでスクロールを操作
+
+その他シーンの遷移やダイアログ用のスクリプトを作成
+シーン遷移についてはUnityのUIラーニングプロジェクトから流用
+
+本解説と同一フォルダにビルドと動画が添付されている
+ビルド：UIPointer
+動画　：UIPointer動画
+
+
+制作時間：10時間程度
+制作環境：windows, Unity, C# , sourcetree(github) 
+
+■ CursorController.cs について
+
+Start
+virtual mouse 及び登録しておいたInputAction (十字キーと右スティックの入力取得用)を有効化
+HUDのボタンとスクロールを取得
+カーソルの初期位置を画面中央にあわせておく
+
+Update OnMoveScroll
+右スティックの入力については傾きをキープして(0,1)の状態のままだと
+performedで取得できないのでUpdateで対応する。
+yの入力が小さい場合はreturn
+取得済のスクロールのリスト内でカーソルの位置があっている場合に
+スティックの入力に合わせてスクロールを動かす
+
+OnMoveCursor
+Startの設定により十字キーの入力で呼ばれる
+対象のボタンリスト内で十字キーの入力方向にあっていて一番カーソルに近いものを探す
+RaycastAll　でマスクされているものを、RectTransformUtility.RectangleContainsScreenPoint で選択中のボタンを除外
+更に入力方向にあっているかの条件内積0.5より大きい場合にボタンの位置を比較
+foreach後にnearestBtnがある場合にカーソル移動処理を行う
