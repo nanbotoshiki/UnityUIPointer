@@ -50,12 +50,10 @@ public class CursorController : MonoBehaviour
         }
         // ダイアログボタンリストはダイアログ開いた時に取得
 
-        //カーソルを画面中央に
+        //カーソル初期位置調整
         var position = new Vector2(Screen.width/2 , Screen.height/2);
         virtualMouse.cursorTransform.anchoredPosition = position;
         InputState.Change(virtualMouse.virtualMouse.position, position);
-
-        Screen.lockCursor = true;
     }
 
     void Update()
@@ -107,7 +105,7 @@ public class CursorController : MonoBehaviour
             Vector2 toBtn = btnPos - cursorLocalPos;
             Vector2 dir = toBtn.normalized;
             float dot = Vector2.Dot(cursorLocalPos.normalized, input.normalized);
-            if (dot > 0.5f) // ある程度入力方向に近いものだけ対象（例: cos(60°)=0.5）
+            if (dot > 0.5f) // ある程度入力方向に近いものだけ対象
             {
                 if (nearestBtnCursorPos != Vector2.zero) {
                     if(nearestBtnCursorPos.magnitude > cursorLocalPos.magnitude) {
@@ -132,7 +130,6 @@ public class CursorController : MonoBehaviour
             RectTransformUtility.ScreenPointToLocalPointInRectangle(cursorParent, btnScreenPos, mainCam, out localPos);
             localPos.x += Screen.width/2;
             localPos.y += Screen.height/2;
-            Debug.Log($"Moving cursor to {nearestBtn.name} at screen:{btnScreenPos}, local:{localPos}");
             virtualMouse.cursorTransform.anchoredPosition = localPos;
             InputState.Change(virtualMouse.virtualMouse.position, localPos);
         }
